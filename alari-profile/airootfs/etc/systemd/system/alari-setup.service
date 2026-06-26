@@ -1,0 +1,12 @@
+[Unit]
+Description=ALARI User Setup
+Before=systemd-logind.service
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/alari-setup.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target

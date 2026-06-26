@@ -1,0 +1,13 @@
+[Unit]
+Description=ALARI WiFi Setup
+Before=iwd.service network-online.target network.target
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/alari-wifi-setup.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

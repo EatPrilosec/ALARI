@@ -1,0 +1,12 @@
+[Unit]
+Description=Librespot Spotify Connect Receiver
+After=network-online.target pipewire.service
+Wants=network-online.target pipewire.service
+
+[Service]
+ExecStart=/usr/bin/librespot -n "ALARI" -b 320
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

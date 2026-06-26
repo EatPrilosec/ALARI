@@ -1,0 +1,30 @@
+name: Build ALARI ISO
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      options: --privileged
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pacman -Syu --noconfirm archiso
+
+      - name: Build ISO
+        run: |
+          mkdir -p out
+          mkarchiso -v -w /tmp/archiso-tmp -o out/ alari-profile/
+
+      - name: Upload ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ALARI-ISO
+          path: out/*.iso
