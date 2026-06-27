@@ -5,8 +5,8 @@ if blkid -L ALARI_PERSIST > /dev/null; then
     exit 0
 fi
 
-# Find the boot device. The archiso volume is typically mounted on /run/archiso/bootmnt.
-BOOTMNT=$(findmnt -n -o SOURCE /run/archiso/bootmnt || findmnt -n -o SOURCE /run/archiso/iso)
+# Find the boot device. The archiso volume has the label ALARI_LIVE
+BOOTMNT=$(blkid -L ALARI_LIVE)
 if [ -z "$BOOTMNT" ]; then
     echo "Could not find boot medium."
     exit 1

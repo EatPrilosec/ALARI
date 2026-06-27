@@ -29,3 +29,7 @@ wireplumber
 gptfdisk
 e2fsprogs
 parted
+python-fastapi
+uvicorn
+python-dbus
+python-pydantic

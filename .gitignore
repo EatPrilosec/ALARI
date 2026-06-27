@@ -1,4 +1,9 @@
 out/
 work/
-tmp/
-.archiso-tmp/
+alari-test/serial_boot.log
+alari-test/ip_address.log
+alari-test/__pycache__/
+alari-api/__pycache__/
+node_modules/
+dist/
+alari-test/simulated_usb.img

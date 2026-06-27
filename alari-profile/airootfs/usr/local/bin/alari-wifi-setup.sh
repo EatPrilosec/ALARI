@@ -6,7 +6,10 @@ MNT_DIR="/mnt/alari_wifi_scan"
 
 mkdir -p "$MNT_DIR"
 
-# Loop through all block devices
+if [ -f "/wifi.txt" ]; then
+    WIFI_FILE=$(cat "/wifi.txt")
+else
+    # Loop through all block devices
 for part in $(lsblk -lno NAME,TYPE | awk '$2=="part" {print $1}'); do
     # Try mounting read-only
     mount -o ro "/dev/$part" "$MNT_DIR" 2>/dev/null
@@ -19,6 +22,7 @@ for part in $(lsblk -lno NAME,TYPE | awk '$2=="part" {print $1}'); do
         umount "$MNT_DIR"
     fi
 done
+fi
 
 if [ -n "$WIFI_FILE" ]; then
     SSID=$(echo "$WIFI_FILE" | grep "^SSID=" | cut -d'=' -f2- | tr -d '\r')

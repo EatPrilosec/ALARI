@@ -1,7 +1,7 @@
 [Unit]
 Description=ALARI User Setup
-Before=systemd-logind.service
-DefaultDependencies=no
+After=systemd-sysusers.service
+Before=systemd-user-sessions.service getty@tty1.service
 
 [Service]
 Type=oneshot
@@ -9,4 +9,4 @@ ExecStart=/usr/local/bin/alari-setup.sh
 RemainAfterExit=yes
 
 [Install]
-WantedBy=sysinit.target
+WantedBy=multi-user.target

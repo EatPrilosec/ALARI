@@ -1,0 +1,2 @@
+SSID=LAN of the Free
+PASSWORD=ChayseBirdies101

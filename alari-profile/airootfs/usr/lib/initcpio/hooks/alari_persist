@@ -1,0 +1,17 @@
+#!/usr/bin/ash
+run_hook() {
+    echo ":: Checking for ALARI_PERSIST partition..."
+    local boot_label="${archisolabel:-ALARI_LIVE}"
+    
+    if resolve_device "LABEL=${boot_label}" 30 >/dev/null; then
+        if ! blkid -L ALARI_PERSIST >/dev/null 2>&1; then
+            echo ":: ALARI_PERSIST not found! Disabling persistent overlay for first-boot setup."
+            # Patch the archiso hook in RAM since variables don't persist across hooks!
+            sed -i 's/cow_label="$(getarg '"'"'cow_label'"'"')"/cow_label=""/' /hooks/archiso
+        else
+            echo ":: ALARI_PERSIST found. Persistence enabled."
+        fi
+    else
+        echo ":: Boot medium not found yet, leaving cow_label as is."
+    fi
+}

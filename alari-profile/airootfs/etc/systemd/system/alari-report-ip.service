@@ -1,0 +1,11 @@
+[Unit]
+Description=ALARI IP Reporter (QEMU Serial)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "ip -4 addr show wlan0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' > /dev/ttyS0 || echo 'No IP found' > /dev/ttyS0"
+
+[Install]
+WantedBy=multi-user.target
